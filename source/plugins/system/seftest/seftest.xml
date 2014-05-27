@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="system" method="upgrade">
+    <name>PLG_SYSTEM_SEFTEST</name>
+    <author>Yireo</author>
+    <creationDate>May 2013</creationDate>
+	<copyright>Copyright (C) 2013 Yireo.com. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+    <authorEmail>info@yireo.com</authorEmail>
+    <authorUrl>www.yireo.com</authorUrl>
+    <version>1.5.4</version>
+    <description>PLG_SYSTEM_SEFTEST_DESC</description>
+
+    <files>
+        <filename plugin="seftest">seftest.php</filename>
+        <filename>index.html</filename>
+    </files>
+
+    <languages>
+        <language tag="en-GB">en-GB.plg_system_seftest.ini</language>
+        <language tag="en-GB">en-GB.plg_system_seftest.sys.ini</language>
+    </languages>
+
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field name="show" type="list" default="0" label="PLG_SYSTEM_SEFTEST_FIELD_SHOW" description="PLG_SYSTEM_SEFTEST_FIELD_SHOW_DESC">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </field>
+                <field name="position" type="list" default="0" label="PLG_SYSTEM_SEFTEST_FIELD_POSITION" description="PLG_SYSTEM_SEFTEST_FIELD_POSITION_DESC">
+                    <option value="top:0;left:0">PLG_SYSTEM_SEFTEST_FIELD_POSITION_OPTION_TOPLEFT</option>
+                    <option value="top:0;right:0">PLG_SYSTEM_SEFTEST_FIELD_POSITION_OPTION_TOPRIGHT</option>
+                    <option value="bottom:0;left:0">PLG_SYSTEM_SEFTEST_FIELD_POSITION_OPTION_BOTTOMLEFT</option>
+                    <option value="bottom:0;right:0">PLG_SYSTEM_SEFTEST_FIELD_POSITION_OPTION_BOTTOMRIGHT</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+
+	<updateservers>
+		<server type="extension" priority="1" name="plg_system_seftest">http://www.yireo.com/updates/plg_system_seftest.xml</server>
+	</updateservers>
+
+</extension>
