@@ -4,7 +4,7 @@
  *
  * @author Yireo (info@yireo.com)
  * @package SEFTest
- * @copyright Copyright 2013
+ * @copyright Copyright 2015
  * @license GNU Public License
  */
 
@@ -18,7 +18,7 @@ class plgSystemSefTest extends JPlugin
     public function onAfterInitialise()
     {
         $application = JFactory::getApplication();
-        $router = &$application->getRouter();
+        $router = $application->getRouter();
         $sef = $application->getUserStateFromRequest('plugin.seftest', 'sef', null);
 
         if($application->getName() != 'site') {
