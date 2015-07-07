@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="2.5" type="plugin" group="system" method="upgrade">
+<extension version="3.4" type="plugin" group="system" method="upgrade">
     <name>PLG_SYSTEM_SEFTEST</name>
     <author>Yireo</author>
-    <creationDate>May 2013</creationDate>
+    <creationDate>July 2015</creationDate>
 	<copyright>Copyright 2015 Yireo.com. All rights reserved.</copyright>
     <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
     <authorEmail>info@yireo.com</authorEmail>
     <authorUrl>www.yireo.com</authorUrl>
-    <version>1.5.4</version>
+    <version>1.5.5</version>
     <description>PLG_SYSTEM_SEFTEST_DESC</description>
 
     <files>
         <filename plugin="seftest">seftest.php</filename>
-        <filename>index.html</filename>
     </files>
 
     <languages>
@@ -38,7 +37,7 @@
     </config>
 
 	<updateservers>
-		<server type="extension" priority="1" name="plg_system_seftest">http://www.yireo.com/updates/plg_system_seftest.xml</server>
+		<server type="extension" priority="1" name="plg_system_seftest">https://www.yireo.com/updates/plg_system_seftest.xml</server>
 	</updateservers>
 
 </extension>
