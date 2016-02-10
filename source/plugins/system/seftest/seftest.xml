@@ -32,6 +32,8 @@
                     <option value="bottom:0;left:0">PLG_SYSTEM_SEFTEST_FIELD_POSITION_OPTION_BOTTOMLEFT</option>
                     <option value="bottom:0;right:0">PLG_SYSTEM_SEFTEST_FIELD_POSITION_OPTION_BOTTOMRIGHT</option>
                 </field>
+                <field name="foreground" type="color" default="#000" label="PLG_SYSTEM_SEFTEST_FIELD_FOREGROUND" description="PLG_SYSTEM_SEFTEST_FIELD_FOREGROUND_DESC" />
+                <field name="background" type="color" default="#fff" label="PLG_SYSTEM_SEFTEST_FIELD_BACKGROUND" description="PLG_SYSTEM_SEFTEST_FIELD_BACKGROUND_DESC" />
             </fieldset>
         </fields>
     </config>

@@ -19,12 +19,15 @@ jimport('joomla.plugin.plugin');
  */
 class PlgSystemSefTest extends JPlugin
 {
+	/**
+	 * @var JApplicationSite
+	 */
 	protected $app;
 
 	/**
 	 * Event method onAfterInitialise
 	 *
-	 * @return bool
+	 * @return null
 	 * @throws Exception
 	 */
 	public function onAfterInitialise()
@@ -33,14 +36,14 @@ class PlgSystemSefTest extends JPlugin
 		$sef = $this->app->getUserStateFromRequest('plugin.seftest', 'sef', null);
 		$config = JFactory::getConfig();
 
-		if ($this->app->getName() != 'site')
+		if ($this->allowPlugin() == false)
 		{
-			return true;
+			return;
 		}
 
-		if (!isset($sef) || $sef == $config->get('sef'))
+		if ($sef !== null || $sef == $config->get('sef'))
 		{
-			return true;
+			return;
 		}
 
 		if ($sef == 1)
@@ -52,31 +55,58 @@ class PlgSystemSefTest extends JPlugin
 			$router->setMode(JROUTER_MODE_RAW);
 		}
 
+		return;
+	}
+
+	/**
+	 * Allow the usage of this plugin
+	 *
+	 * @return bool
+	 */
+	protected function allowPlugin()
+	{
+		if ($this->app->getName() != 'site')
+		{
+			return false;
+		}
+
 		return true;
 	}
 
 	/**
 	 * Event method onAfterRender
 	 *
-	 * @return bool
+	 * @return null
 	 * @throws Exception
 	 */
 	public function onAfterRender()
 	{
-		if ($this->app->getName() != 'site')
+		if ($this->allowPlugin() == false)
 		{
-			return true;
+			return;
 		}
 
-		$box_show = $this->params->get('show', '1');
+		if ((int) $this->params->get('show', 1) !== 1)
+		{
+			return;
+		}
+
+		$box = $this->getSelectBoxHtml();
+		$buffer = JResponse::getBody();
+		$buffer = str_replace('</body>', $box . '</body>', $buffer);
+		JResponse::setBody($buffer);
+
+		return;
+	}
+
+	/**
+	 * Return the HTML of the box
+	 */
+	protected function getSelectBoxHtml()
+	{
 		$box_position = $this->params->get('position', 'top:0;left:0');
-		$box_foreground = $this->params->get('foreground', '#000000');
-		$box_background = $this->params->get('background', '#ffffff');
-
-		if ($box_show != 1)
-		{
-			return true;
-		}
+		$box_foreground = $this->params->get('foreground', '#000');
+		$box_background = $this->params->get('background', '#fff');
 
 		$sef = $this->app->getUserStateFromRequest('plugin.seftest', 'sef', null);
 		$selected = ($sef == 1) ? ' selected="selected"' : '';
@@ -84,7 +114,7 @@ class PlgSystemSefTest extends JPlugin
 		$styles = array(
 			'border:1px solid ' . $box_foreground,
 			'color:' . $box_foreground,
-			'background-color:' . $box_foreground,
+			'background-color:' . $box_background,
 			'position:absolute',
 			$box_position,
 			'padding:10px',
@@ -101,10 +131,6 @@ class PlgSystemSefTest extends JPlugin
 		$box .= '</form>';
 		$box .= '</div>';
 
-		$buffer = JResponse::getBody();
-		$buffer = str_replace('</body>', $box . '</body>', $buffer);
-		JResponse::setBody($buffer);
-
-		return true;
+		return $box;
 	}
 }
