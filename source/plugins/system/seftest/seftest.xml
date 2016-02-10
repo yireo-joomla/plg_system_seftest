@@ -2,12 +2,12 @@
 <extension version="3.4" type="plugin" group="system" method="upgrade">
     <name>PLG_SYSTEM_SEFTEST</name>
     <author>Yireo</author>
-    <creationDate>July 2015</creationDate>
-	<copyright>Copyright 2015 Yireo.com. All rights reserved.</copyright>
+    <creationDate>February 2016</creationDate>
+	<copyright>Copyright 2016 Yireo.com. All rights reserved.</copyright>
     <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
     <authorEmail>info@yireo.com</authorEmail>
     <authorUrl>www.yireo.com</authorUrl>
-    <version>1.5.5</version>
+    <version>1.6.0</version>
     <description>PLG_SYSTEM_SEFTEST_DESC</description>
 
     <files>
@@ -22,7 +22,7 @@
     <config>
         <fields name="params">
             <fieldset name="basic">
-                <field name="show" type="list" default="0" label="PLG_SYSTEM_SEFTEST_FIELD_SHOW" description="PLG_SYSTEM_SEFTEST_FIELD_SHOW_DESC">
+                <field name="show" type="radio" class="btn-group" default="0" label="PLG_SYSTEM_SEFTEST_FIELD_SHOW" description="PLG_SYSTEM_SEFTEST_FIELD_SHOW_DESC">
                     <option value="0">No</option>
                     <option value="1">Yes</option>
                 </field>

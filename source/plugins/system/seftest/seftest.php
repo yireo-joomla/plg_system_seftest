@@ -86,10 +86,10 @@ class PlgSystemSefTest extends JPlugin
 			'border:1px solid ' . $box_foreground,
 			'color:' . $box_foreground,
 			'background-color:' . $box_foreground,
-			'position:absolute', $box_position,
+			'position:absolute',
+			$box_position,
 			'padding:10px',
-			'margin:10px'
-		);
+			'margin:10px');
 
 		$style = implode(';', $styles);
 
