@@ -19,6 +19,8 @@ jimport('joomla.plugin.plugin');
  */
 class PlgSystemSefTest extends JPlugin
 {
+	protected $app;
+
 	/**
 	 * Event method onAfterInitialise
 	 *
@@ -27,12 +29,11 @@ class PlgSystemSefTest extends JPlugin
 	 */
 	public function onAfterInitialise()
 	{
-		$application = JFactory::getApplication();
-		$router = $application->getRouter();
-		$sef = $application->getUserStateFromRequest('plugin.seftest', 'sef', null);
+		$router = $this->app->getRouter();
+		$sef = $this->app->getUserStateFromRequest('plugin.seftest', 'sef', null);
 		$config = JFactory::getConfig();
 
-		if ($application->getName() != 'site')
+		if ($this->app->getName() != 'site')
 		{
 			return true;
 		}
@@ -62,9 +63,7 @@ class PlgSystemSefTest extends JPlugin
 	 */
 	public function onAfterRender()
 	{
-		$application = JFactory::getApplication();
-
-		if ($application->getName() != 'site')
+		if ($this->app->getName() != 'site')
 		{
 			return true;
 		}
@@ -79,7 +78,7 @@ class PlgSystemSefTest extends JPlugin
 			return true;
 		}
 
-		$sef = $application->getUserStateFromRequest('plugin.seftest', 'sef', null);
+		$sef = $this->app->getUserStateFromRequest('plugin.seftest', 'sef', null);
 		$selected = ($sef == 1) ? ' selected="selected"' : '';
 
 		$styles = array(
