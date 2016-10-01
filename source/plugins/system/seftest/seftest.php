@@ -4,14 +4,14 @@
  *
  * @author    Yireo (info@yireo.com)
  * @package   SEFTest
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
  */
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
-// @deprecated: Import the parent library
+// Import the parent library
 jimport('joomla.plugin.plugin');
 
 /**
@@ -25,37 +25,50 @@ class PlgSystemSefTest extends JPlugin
 	protected $app;
 
 	/**
-	 * Event method onAfterInitialise
+	 * PlgSystemSefTest constructor.
 	 *
-	 * @return null
-	 * @throws Exception
+	 * @param object $subject
+	 * @param array  $config
 	 */
-	public function onAfterInitialise()
+	public function __construct(&$subject, $config = array())
+	{
+		$this->app = JFactory::getApplication();
+		$this->toggleSef();
+
+		$rt = parent::__construct($subject, $config);
+
+		return $rt;
+	}
+
+	/**
+	 * @return bool
+	 */
+	protected function toggleSef()
 	{
 		$router = $this->app->getRouter();
 		$sef = $this->app->getUserStateFromRequest('plugin.seftest', 'sef', null);
-		$config = JFactory::getConfig();
 
-		if ($this->allowPlugin() == false)
+		if ($this->allowPlugin() === false)
 		{
-			return;
+			return false;
 		}
 
-		if ($sef !== null || $sef == $config->get('sef'))
+		if ($sef === null)
 		{
-			return;
+			return false;
 		}
 
-		if ($sef == 1)
+		if ((bool) $sef === true)
 		{
-			$router->setMode(JROUTER_MODE_SEF);
-		}
-		elseif ($sef == 0)
-		{
-			$router->setMode(JROUTER_MODE_RAW);
+			$router->setMode(1);
 		}
 
-		return;
+		if ((bool) $sef === false)
+		{
+			$router->setMode(0);
+		}
+
+		return true;
 	}
 
 	/**
@@ -65,7 +78,7 @@ class PlgSystemSefTest extends JPlugin
 	 */
 	protected function allowPlugin()
 	{
-		if ($this->app->getName() != 'site')
+		if ($this->app->getName() !== 'site')
 		{
 			return false;
 		}
@@ -81,7 +94,7 @@ class PlgSystemSefTest extends JPlugin
 	 */
 	public function onAfterRender()
 	{
-		if ($this->allowPlugin() == false)
+		if ($this->allowPlugin() === false)
 		{
 			return;
 		}
