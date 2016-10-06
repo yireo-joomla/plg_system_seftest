@@ -105,9 +105,9 @@ class PlgSystemSefTest extends JPlugin
 		}
 
 		$box = $this->getSelectBoxHtml();
-		$buffer = JResponse::getBody();
+		$buffer = $this->app->getBody();
 		$buffer = str_replace('</body>', $box . '</body>', $buffer);
-		JResponse::setBody($buffer);
+		$this->app->setBody($buffer);
 
 		return;
 	}
@@ -121,7 +121,7 @@ class PlgSystemSefTest extends JPlugin
 		$box_foreground = $this->params->get('foreground', '#000');
 		$box_background = $this->params->get('background', '#fff');
 
-		$sef = $this->app->getUserStateFromRequest('plugin.seftest', 'sef', null);
+		$sef = $this->getCurrentSefState();
 		$selected = ($sef == 1) ? ' selected="selected"' : '';
 
 		$styles = array(
@@ -129,6 +129,7 @@ class PlgSystemSefTest extends JPlugin
 			'color:' . $box_foreground,
 			'background-color:' . $box_background,
 			'position:absolute',
+			'z-index: 100',
 			$box_position,
 			'padding:10px',
 			'margin:10px');
@@ -136,7 +137,7 @@ class PlgSystemSefTest extends JPlugin
 		$style = implode(';', $styles);
 
 		$box = '<div style="' . $style . '">';
-		$box .= '<form method="post" id="seftest" name="seftest" action="' . JURI::current() . '">';
+		$box .= '<form method="post" id="seftest" name="seftest" action="' . JUri::current() . '">';
 		$box .= '<select name="sef" onchange="document.seftest.submit();">';
 		$box .= '<option value="0">' . JText::_('SEF Disabled') . '</option>';
 		$box .= '<option value="1"' . $selected . '>' . JText::_('SEF Enabled') . '</option>';
@@ -145,5 +146,20 @@ class PlgSystemSefTest extends JPlugin
 		$box .= '</div>';
 
 		return $box;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	protected function getCurrentSefState()
+	{
+		$sef = $this->app->getUserStateFromRequest('plugin.seftest', 'sef', null);
+
+		if (!is_numeric($sef))
+		{
+			$sef = (int) JFactory::getConfig()->get('sef');
+		}
+
+		return $sef;
 	}
 }
